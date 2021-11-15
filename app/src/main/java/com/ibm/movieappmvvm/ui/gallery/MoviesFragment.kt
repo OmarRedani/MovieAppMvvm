@@ -13,7 +13,6 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.ibm.movieappmvvm.R
-import com.ibm.movieappmvvm.api.MovieApi
 import com.ibm.movieappmvvm.data.MovieModel
 import com.ibm.movieappmvvm.databinding.FragmentMoviesBinding
 import dagger.hilt.android.AndroidEntryPoint

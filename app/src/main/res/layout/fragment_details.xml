@@ -13,24 +13,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="4dp">
+            android:paddingBottom="@dimen/four_dp">
 
             <ImageView
                 android:id="@+id/image_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="@dimen/four_dp"
                 android:adjustViewBounds="true"
-                tools:layout_height="300dp"
+                tools:layout_height="@dimen/three_hundred_dp"
                 tools:scaleType="centerCrop"
-                tools:src="@mipmap/ic_launcher_round" />
+                tools:src="@mipmap/ic_launcher_round"
+                android:contentDescription="@string/android_image" />
 
             <TextView
                 android:id="@+id/text_view_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="@dimen/eight_dp"
+                android:layout_marginEnd="@dimen/eight_dp"
                 android:visibility="gone"
                 tools:text="This is the title"
                 tools:visibility="visible" />
@@ -39,8 +40,8 @@
                 android:id="@+id/text_view_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="@dimen/eight_dp"
+                android:layout_marginEnd="@dimen/eight_dp"
                 android:textColor="@android:color/black"
                 android:visibility="gone"
                 tools:text="The movie description"
