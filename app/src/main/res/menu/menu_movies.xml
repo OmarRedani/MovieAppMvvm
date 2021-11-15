@@ -4,15 +4,15 @@
 
     <item
         android:icon="@drawable/ic_sort"
-        android:title="Filter"
+        android:title="@string/filter"
         app:showAsAction="ifRoom">
         <menu>
             <item android:id="@+id/action_sort_desc"
-                android:title="Newest to oldest"/>
+                android:title="@string/newest_to_oldest"/>
             <item android:id="@+id/action_sort_asc"
-                android:title="Oldest to newest"/>
+                android:title="@string/oldest_to_newest"/>
             <item android:id="@+id/action_vote_desc"
-                android:title="Filter by Vote"/>
+                android:title="@string/filter_by_vote"/>
         </menu>
     </item>
 
