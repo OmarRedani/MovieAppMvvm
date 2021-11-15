@@ -8,6 +8,19 @@
     <fragment
         android:id="@+id/moviesFragment"
         android:name="com.ibm.movieappmvvm.ui.gallery.MoviesFragment"
-        android:label="fragment_movies"
-        tools:layout="@layout/fragment_movies" />
+        android:label="Movies"
+        tools:layout="@layout/fragment_movies">
+        <action
+            android:id="@+id/action_moviesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.ibm.movieappmvvm.ui.details.DetailsFragment"
+        android:label="Movie Details"
+        tools:layout="@layout/fragment_details">
+        <argument
+            android:name="movie"
+            app:argType="com.ibm.movieappmvvm.data.MovieModel" />
+    </fragment>
 </navigation>
