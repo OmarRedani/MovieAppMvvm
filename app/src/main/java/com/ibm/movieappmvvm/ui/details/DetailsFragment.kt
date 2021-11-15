@@ -2,6 +2,7 @@ package com.ibm.movieappmvvm.ui.details
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -18,6 +19,17 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private val args by navArgs<DetailsFragmentArgs>()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        postponeEnterTransition()
+        val animation = TransitionInflater.from(requireContext()).inflateTransition(
+            android.R.transition.move
+        )
+        sharedElementEnterTransition = animation
+        sharedElementReturnTransition = animation
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -26,6 +38,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         binding.apply {
             val movie = args.movie
 
+            imageView.transitionName = "${movie.poster_path}"
             Glide.with(this@DetailsFragment)
                 .load("${MovieApi.BASE_POSTER_URL}${movie.poster_path}")
                 .error(R.drawable.ic_error)
@@ -36,6 +49,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                         target: com.bumptech.glide.request.target.Target<Drawable>?,
                         isFirstResource: Boolean
                     ): Boolean {
+                        startPostponedEnterTransition()
                         return false
                     }
 
@@ -48,6 +62,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                     ): Boolean {
                         textViewTitle.isVisible = true
                         textViewDescription.isVisible = true
+                        startPostponedEnterTransition()
                         return false
                     }
 

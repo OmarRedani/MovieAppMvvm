@@ -2,6 +2,7 @@ package com.ibm.movieappmvvm.ui.gallery
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -39,7 +40,7 @@ class MovieAdapter(private val listener: OnItemClickListener) :
                 if (position != RecyclerView.NO_POSITION) {
                     val item = getItem(position)
                     if (item != null) {
-                        listener.onItemClick(item)
+                        listener.onItemClick(item, binding.imageView)
                     }
                 }
             }
@@ -47,9 +48,9 @@ class MovieAdapter(private val listener: OnItemClickListener) :
 
         fun bind(movie: MovieModel) {
             binding.apply {
+                imageView.transitionName = "${movie.poster_path}"
                 Glide.with(itemView)
                     .load("${MovieApi.BASE_POSTER_URL}${movie.poster_path}")
-                    .centerCrop()
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .error(R.drawable.ic_error)
                     .into(imageView)
@@ -60,7 +61,7 @@ class MovieAdapter(private val listener: OnItemClickListener) :
     }
 
     interface OnItemClickListener {
-        fun onItemClick(movie: MovieModel)
+        fun onItemClick(movie: MovieModel, imageView: ImageView)
     }
 
     companion object {
