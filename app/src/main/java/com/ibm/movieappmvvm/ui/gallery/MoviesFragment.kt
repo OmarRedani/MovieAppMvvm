@@ -25,7 +25,9 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
         binding.apply {
             recyclerView.setHasFixedSize(true)
-            recyclerView.adapter = adapter
+            recyclerView.adapter = adapter.withLoadStateFooter(
+                footer = MovieLoadStateAdapter { adapter.retry() }
+            )
         }
 
         viewModel.movies.observe(viewLifecycleOwner) {
