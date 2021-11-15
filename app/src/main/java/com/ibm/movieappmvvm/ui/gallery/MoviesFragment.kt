@@ -8,13 +8,15 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.ibm.movieappmvvm.R
+import com.ibm.movieappmvvm.data.MovieModel
 import com.ibm.movieappmvvm.databinding.FragmentMoviesBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MoviesFragment : Fragment(R.layout.fragment_movies) {
+class MoviesFragment : Fragment(R.layout.fragment_movies), MovieAdapter.OnItemClickListener {
 
     private val viewModel by viewModels<MovieViewModel>()
 
@@ -26,7 +28,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
         _binding = FragmentMoviesBinding.bind(view)
 
-        val adapter = MovieAdapter()
+        val adapter = MovieAdapter(this)
 
         binding.apply {
             recyclerView.setHasFixedSize(true)
@@ -65,6 +67,11 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         setHasOptionsMenu(true)
     }
 
+    override fun onItemClick(movie: MovieModel) {
+        val action = MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(movie)
+        findNavController().navigate(action)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_movies, menu)
     }
@@ -87,7 +94,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         }
     }
 
-    private fun filterBy(query:String){
+    private fun filterBy(query: String) {
         viewModel.searchMovies(query)
         binding.recyclerView.scrollToPosition(0)
     }

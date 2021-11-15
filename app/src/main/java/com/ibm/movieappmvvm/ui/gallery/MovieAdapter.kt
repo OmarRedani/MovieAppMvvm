@@ -12,7 +12,7 @@ import com.ibm.movieappmvvm.api.MovieApi
 import com.ibm.movieappmvvm.data.MovieModel
 import com.ibm.movieappmvvm.databinding.ItemMovieBinding
 
-class MovieAdapter :
+class MovieAdapter(private val listener: OnItemClickListener) :
     PagingDataAdapter<MovieModel, MovieAdapter.MovieViewHolder>(PHOTO_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -30,8 +30,20 @@ class MovieAdapter :
         }
     }
 
-    class MovieViewHolder(private val binding: ItemMovieBinding) :
+    inner class MovieViewHolder(private val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = getItem(position)
+                    if (item != null) {
+                        listener.onItemClick(item)
+                    }
+                }
+            }
+        }
 
         fun bind(movie: MovieModel) {
             binding.apply {
@@ -45,6 +57,10 @@ class MovieAdapter :
                 textViewTitle.text = movie.title
             }
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(movie: MovieModel)
     }
 
     companion object {
