@@ -1,6 +1,9 @@
 package com.ibm.movieappmvvm.ui.gallery
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -33,6 +36,35 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         viewModel.movies.observe(viewLifecycleOwner) {
             adapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
+
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_movies, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_sort_desc -> {
+                filterBy("release_date.desc")
+                true
+            }
+            R.id.action_sort_asc -> {
+                filterBy("release_date.asc")
+                true
+            }
+            R.id.action_vote_desc -> {
+                filterBy("vote_average.desc")
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun filterBy(query:String){
+        viewModel.searchMovies(query)
+        binding.recyclerView.scrollToPosition(0)
     }
 
     override fun onDestroyView() {
